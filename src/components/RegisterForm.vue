@@ -1,5 +1,5 @@
 <template>
-  <vee-form :validation-schema="schema">
+  <vee-form :validation-schema="schema" @submit="register">
     <!-- Name -->
     <div class="mb-3">
       <label class="inline-block mb-2">Name</label>
@@ -91,6 +91,17 @@ export default {
         tos: 'tos',
       },
     };
+  },
+  methods: {
+    async register(values) {
+      try {
+        await this.$store.dispatch('register', values);
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+      window.location.reload();
+    },
   },
 };
 </script>

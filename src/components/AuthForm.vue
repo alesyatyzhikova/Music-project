@@ -1,5 +1,5 @@
 <template>
-  <vee-form :validation-schema="schema">
+  <vee-form :validation-schema="schema" @submit="login">
     <!-- Email -->
     <div class="mb-3">
       <label class="inline-block mb-2">Email</label>
@@ -36,6 +36,17 @@ export default {
         password: 'required|min:3|max:100',
       },
     };
+  },
+  methods: {
+    async login(values) {
+      try {
+        await this.$store.dispatch('login', values);
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+      window.location.reload();
+    },
   },
 };
 </script>
